@@ -126,7 +126,7 @@ public:
         }
 
         Node* tmp = node->m_map[word[i]];
-        if (!node) return false;
+        if (!tmp) return false;
 
         bool shouldDeleteCurrNode = removeWordHelper(tmp, word, i + 1);
         if (shouldDeleteCurrNode) {
