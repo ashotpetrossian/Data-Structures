@@ -73,13 +73,13 @@ public:
     int m_t; // min degree
 
     BTree(int t);
-    void traverse() noexcept;
+    void traverse() const noexcept;
     std::shared_ptr<BTreeNode> search(T key);
 
     void insert(T key);
     void remove(T key);
 
-    void print() noexcept;
+    void print() const noexcept;
 };
 
 // *******************   BTree functionality ********************
@@ -90,7 +90,7 @@ BTree<T>::BTree(int t) : m_root{nullptr}, m_t{t}
 
 template <typename T>
 void
-BTree<T>::traverse() noexcept
+BTree<T>::traverse() const noexcept
 {
     if (m_root != nullptr) {
         m_root->traverse();
@@ -99,7 +99,7 @@ BTree<T>::traverse() noexcept
 
 template <typename T>
 void
-BTree<T>::print() noexcept
+BTree<T>::print() const noexcept
 {
     std::cout << "\n\n";
     std::queue<std::shared_ptr<BTreeNode>> q;
