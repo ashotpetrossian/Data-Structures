@@ -1,5 +1,4 @@
-#ifndef __BTREE_H__
-#define __BTREE_H__
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -591,5 +590,3 @@ BTree<T>::BTreeNode::merge(int index)
     child->m_size += sibling->m_size + 1;
     --m_size;
 }
-
-#endif
