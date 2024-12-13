@@ -1,19 +1,22 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
+#include <numeric>
 
 class UnionFind {
 public:
-    UnionFind(std::size_t size) : m_size { size }, m_components { size } {
+    UnionFind(std::size_t size) : m_size{ size }, m_components{ size }
+    {
         m_ids.resize(size);
         m_sizes.resize(size, 1);
-        for (int i = 0; i < size; ++i) {
-            m_ids[i] = i;
-        }
+        std::iota(m_ids.begin(), m_ids.end(), 0);
     }
 
     // find to which component p node belongs to
-    std::size_t find(std::size_t p) const noexcept {
-        std::size_t root = p;
+    std::size_t find(std::size_t p) const noexcept
+    {
+        std::size_t root{ p };
         while (root != m_ids[root]) root = m_ids[root];
 
         // compress the path leading back to the root.
@@ -26,11 +29,22 @@ public:
         return root;
     }
 
-    bool areConnected(std::size_t p, std::size_t q) const noexcept {
+    std::size_t findRecursive(std::size_t x) const noexcept
+    {
+        if (x == m_ids[x]) {
+            return x;
+        }
+
+        return m_ids[x] = findRecursive(m_ids[x]);
+    }
+
+    bool areConnected(std::size_t p, std::size_t q) const noexcept
+    {
         return find(p) == find(q);
     }
 
-    std::size_t getComponentSize(std::size_t p) const noexcept {
+    std::size_t getComponentSize(std::size_t p) const noexcept
+    {
         return m_sizes[find(p)];
     }
 
@@ -38,16 +52,18 @@ public:
 
     constexpr std::size_t getNumComponents() const noexcept { return m_components; }
 
-    void unify(std::size_t p, std::size_t q) noexcept {
+    void unify(std::size_t p, std::size_t q) noexcept
+    {
         int root1 = find(p);
         int root2 = find(q);
 
-        if (root1  == root2) return;
+        if (root1 == root2) return;
 
         if (m_sizes[root1] >= m_sizes[root2]) {
             m_sizes[root1] += m_sizes[root2];
             m_ids[root2] = m_ids[root1];
-        } else {
+        }
+        else {
             m_sizes[root2] += m_sizes[root1];
             m_ids[root1] = m_ids[root2];
         }
@@ -55,8 +71,9 @@ public:
         --m_components;
     }
 
-    void display() {
-        for (int i = 0; i < m_size; ++i) {
+    void display()
+    {
+        for (int i{}; i < m_size; ++i) {
             std::cout << "Index: " << i << ", id: " << m_ids[i] << ", size = " << m_sizes[i] << std::endl;
         }
     }
