@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <queue>
 
@@ -9,9 +11,9 @@ class RBT {
     struct Node {
         T m_val;
         COLOR m_color;
-        Node* left;
-        Node* right;
-        Node* parent;
+        Node* left{ nullptr };
+        Node* right{ nullptr };
+        Node* parent{ nullptr };
 
         Node(T val): m_val(val), m_color{COLOR::RED}, left{nullptr}, right{nullptr}, parent{nullptr} { } 
     };
@@ -62,11 +64,11 @@ private:
     void printPreorderHelper(Node* node) {
         if (node == Tnil) return;
 
+        std::string m_color = (node->m_color == COLOR::BLACK) ? "(B)" : "(R)";
+        std::cout << node->m_val << "_" << m_color << "  ";
+
         printPreorderHelper(node->left);
         printPreorderHelper(node->right);
-
-        std::string m_color = (node->m_color == COLOR::BLACK) ? "(B)" : "(R)"; 
-        std::cout << node->m_val << "_" << m_color << "  ";
     }
 
     void printInorderHelper(Node* node) {
@@ -83,11 +85,11 @@ private:
     void printPostorderHelper(Node* node) {
         if (node == Tnil) return;
 
-        std::string m_color = (node->m_color == COLOR::BLACK) ? "(B)" : "(R)"; 
-        std::cout << node->m_val << "_" << m_color << "  ";
-
         printPostorderHelper(node->left);
         printPostorderHelper(node->right);
+
+        std::string m_color = (node->m_color == COLOR::BLACK) ? "(B)" : "(R)";
+        std::cout << node->m_val << "_" << m_color << "  ";
     }
 
     void printLevelOrderHelper(Node* node) {
@@ -99,7 +101,7 @@ private:
         while (!q.empty()) {
             int size = q.size();
             while (size--) {
-                Node* tmp = q.front();
+                Node* tmp{ q.front() };
                 q.pop();
 
                 if (tmp->left != Tnil) q.push(tmp->left);
@@ -132,7 +134,7 @@ private:
         return node;
     }
 
-    // v takes u's place, connections fix only parents.
+    // v takes u's place, connections fix only for parents.
     void transplant(Node* u, Node* v) {
         if (u->parent == Tnil) {
             root = v;
@@ -145,7 +147,7 @@ private:
     }
 
     void leftRotate(Node* y) {
-        Node* x = y->right;
+        Node* x{ y->right };
         y->right = x->left;
 
         if (x->left != Tnil) {
@@ -164,7 +166,7 @@ private:
     }
 
     void rightRotate(Node* y) {
-        Node* x = y->left;
+        Node* x{ y->left };
         y->left = x->right;
 
         if (x->right != Tnil) {
@@ -185,12 +187,12 @@ private:
     }
 
     void insertHelper(T val) {
-        Node* z = new Node(val);
+        Node* z{ new Node(val) };
         z->left = z->right = z->parent = Tnil;
         z->m_color = COLOR::RED;
 
-        Node* y = Tnil;
-        Node* x = root;
+        Node* y{ Tnil };
+        Node* x{ root };
 
         while (x != Tnil) {
             y = x;
@@ -263,8 +265,8 @@ private:
     }
 
     void removeHelper(T val) {
-        Node* z = Tnil;
-        Node* node = root;
+        Node* z{ Tnil };
+        Node* node{ root };
 
         while (node != Tnil) {
             if (node->m_val == val) {
@@ -281,9 +283,9 @@ private:
             std::cout << "WARNING: no key: " << val << " was found in the tree" << std::endl;
         }
 
-        Node* y = z;
-        Node* x = Tnil;
-        COLOR originalColor = y->m_color;
+        Node* y{ z };
+        Node* x{ Tnil };
+        COLOR originalColor{ y->m_color };
 
         if (z->left == Tnil) {
             x = z->right;
@@ -319,7 +321,7 @@ private:
     }
 
     void removeFixUp(Node* x) {
-        Node* w = Tnil; // declaring uncle
+        Node* w{ Tnil }; // uncle
 
         while (x != root && x->m_color == COLOR::BLACK) {
             if (x == x->parent->left) {
@@ -387,10 +389,12 @@ private:
         q.push(root);
 
         while (!q.empty()) {
-            Node* tmp = q.front();
+            Node* tmp{ q.front() };
             q.pop();
+            
             if (tmp->left != Tnil) q.push(tmp->left);
             if (tmp->right != Tnil) q.push(tmp->right);
+
             delete tmp;
             tmp = nullptr;
         }
@@ -399,12 +403,9 @@ private:
         Tnil = nullptr;
     }
 
-
-
-
 private:
-    Node* root;
-    Node* Tnil; // due to Cormen
+    Node* root{ nullptr };
+    Node* Tnil{ nullptr }; // due to Cormen
 };
 
 } // myDS
