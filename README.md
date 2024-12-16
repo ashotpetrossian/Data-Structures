@@ -1,3 +1,7 @@
 Basic and Andanced DS: 
-AVL tree, RBT tree, BTree, DisjointSet(Union Find), Trie tree.
-  In progress...
+*  AVL tree
+*  RBT tree
+*  BTree
+*  Union Find)
+*  Trie tree
+*  Segment Tree
