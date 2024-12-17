@@ -1,0 +1,64 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+
+class SparseTableRMQ
+{
+public:
+	SparseTableRMQ(std::vector<int> vec) : nums{ std::move(vec) }
+	{
+		n = nums.size();
+		preprocessRMQ();
+	}
+
+	void preprocessRMQ()
+	{
+		table.resize(n);
+
+		for (auto& column : table) column.resize(std::log2(n) + 1);
+
+		for (int i{}; i < n; ++i) table[i][0] = nums[i];
+
+		for (int j{ 1 }; (1 << j) <= n; ++j) {
+			for (int i{ }; i + (1 << (j - 1)) < n; ++i) {
+				table[i][j] = std::min(table[i][j - 1], table[i + (1 << (j - 1))][j - 1]);
+			}
+		}
+	}
+
+	int query(int low, int high)
+	{
+		int len{ high - low + 1 };
+		int k = std::log2(len);
+		return std::min(table[low][k], table[high - std::pow(2, k) + 1][k]);
+	}
+
+	void print()
+	{
+		for (int i{}; i < n; ++i) {
+			for (int j{}; (1 << j) <= n; ++j) {
+				std::cout << std::setw(2) << table[i][j] << " ";
+			}
+
+			std::cout << std::endl;
+		}
+	}
+
+private:
+	std::vector<int> nums;
+	std::vector<std::vector<int>> table;
+	int n{};
+};
+
+int main()
+{
+	std::vector<int> nums{ 5,1,13,6,4,10,2 };
+	SparseTableRMQ table{ nums };
+	table.print();
+
+	std::cout << "RMQ [" << 1 << " - " << 4 << "] = " << table.query(1, 4)
+		<< "\nRMQ [" << 4 << " - " << 6 << "] = " << table.query(4, 6)
+		<< "\nRMQ [" << 1 << " - " << 3 << "] = " << table.query(1, 3)
+		<< "\nRMQ [" << 5 << " - " << 5 << "] = " << table.query(5, 5)
+		<< std::endl;
+}
