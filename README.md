@@ -1,8 +1,8 @@
 Basic and Advanced DS: 
-*  AVL tree
-*  RBT tree
-*  BTree
+*  AVL Tree
+*  RB Tree
+*  B Tree
 *  Union Find
-*  Trie tree
+*  Trie Tree
 *  Segment Tree
 *  Sparse Table
