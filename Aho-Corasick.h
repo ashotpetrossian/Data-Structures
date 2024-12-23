@@ -298,13 +298,3 @@ private:
 	std::vector<std::string> words;
 	Node* root{};
 };
-/*
-int main()
-{
-	std::vector<std::string> listOfWords{ "meet", "meat", "eat", "eating", "tiny", "in" };
-	std::string bigText{ "I am eating meat" };
-
-	Aho_Corasick obj(bigText, listOfWords);
-	obj.findPatterns();
-}
-*/
