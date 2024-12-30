@@ -6,3 +6,4 @@ Basic and Advanced DS:
 *  Trie Tree
 *  Segment Tree
 *  Sparse Table
+*  Aho-Corasick
