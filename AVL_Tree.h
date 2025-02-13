@@ -183,11 +183,11 @@ namespace myDS {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
-            if (bf < -1 && getBF(node->right) >= 0) {
-                node->right = rightRotate(node->right);
+            if (bf < -1 && getBF(node->right) <= 0) {
                 return leftRotate(node);
             }
-            if (bf < -1 && getBF(node->right) < 0) {
+            if (bf < -1 && getBF(node->right) > 0) {
+                node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
 
