@@ -14,7 +14,7 @@ public:
     }
 
     // find to which component p node belongs to
-    std::size_t find(std::size_t p) const noexcept
+    std::size_t find(std::size_t p) const 
     {
         std::size_t root{ p };
         while (root != m_ids[root]) root = m_ids[root];
@@ -29,7 +29,7 @@ public:
         return root;
     }
 
-    std::size_t findRecursive(std::size_t x) const noexcept
+    std::size_t findRecursive(std::size_t x) const 
     {
         if (x == m_ids[x]) {
             return x;
@@ -38,12 +38,12 @@ public:
         return m_ids[x] = findRecursive(m_ids[x]);
     }
 
-    bool areConnected(std::size_t p, std::size_t q) const noexcept
+    bool areConnected(std::size_t p, std::size_t q) const 
     {
         return find(p) == find(q);
     }
 
-    std::size_t getComponentSize(std::size_t p) const noexcept
+    std::size_t getComponentSize(std::size_t p) const 
     {
         return m_sizes[find(p)];
     }
@@ -52,7 +52,7 @@ public:
 
     constexpr std::size_t getNumComponents() const noexcept { return m_components; }
 
-    void unify(std::size_t p, std::size_t q) noexcept
+    void unify(std::size_t p, std::size_t q)
     {
         int root1 = find(p);
         int root2 = find(q);
@@ -71,7 +71,7 @@ public:
         --m_components;
     }
 
-    void display()
+    void display() const 
     {
         for (int i{}; i < m_size; ++i) {
             std::cout << "Index: " << i << ", id: " << m_ids[i] << ", size = " << m_sizes[i] << std::endl;
