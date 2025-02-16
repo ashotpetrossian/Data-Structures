@@ -50,9 +50,9 @@
 * 
 * Time Complexity:
 * fetch(k):
-* Binary search: O(log n) for finding the k-th element.
+* Binary search: The binary search runs O(log n) times, and each iteration involves O(log n) operations for querying and updating the Fenwick Tree.
 * Fenwick Tree updates: Each update (insert()) takes O(log n), so there are two updates per fetch(k) operation.
-* Overall, the time complexity of fetch(k) is O(log n).
+* Overall, the time complexity of fetch(k) is O(log²n).
 */
 
 // Fenwick Tree class for frequency counting
