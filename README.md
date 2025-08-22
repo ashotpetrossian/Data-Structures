@@ -7,3 +7,8 @@ Basic and Advanced DS:
 *  Segment Tree
 *  Sparse Table
 *  Aho-Corasick
+*  Fenwick Tree
+*  Segment Tree
+*  MRU Queue
+*  Skip List
+*  XORLinkedList
